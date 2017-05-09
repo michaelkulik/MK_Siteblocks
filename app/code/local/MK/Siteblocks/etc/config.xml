@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <MK_Siteblocks>
+            <version>1.0.0</version>
+        </MK_Siteblocks>
+    </modules>
+    <global>
+        <blocks>
+
+        </blocks>
+        <models>
+            <siteblocks><!--от этого имени зависит то, как мы будем вызывать нашу модель-->
+                <class>MK_Siteblocks_Model</class><!--префикс класса модели Block.php-->
+                <resourceModel>siteblocks_resource</resourceModel><!--указываем название узла ниже-->
+            </siteblocks>
+            <siteblocks_resource>
+                <class>MK_Siteblocks_Resource</class>
+                <entities><!--в этой секции декларируем таблицы БД-->
+                    <block><!--это название модели Block.php (произвольное), а в дочернем узле - таблица, с которой наша модель работает-->
+                        <table>mk_siteblock</table><!--такое название как в БД-->
+                    </block>
+                </entities>
+            </siteblocks_resource>
+        </models>
+        <resources><!--секция чтобы указать, откуда брать инсталляционный скрипт-->
+            <siteblocks_setup><!--совпадает с папкой, где лежат инсталляционные скрипты-->
+                <setup>
+                    <module>MK_Siteblocks</module>
+                </setup>
+            </siteblocks_setup>
+        </resources>
+        <helper>
+
+        </helper>
+    </global>
+    <frontend>
+
+    </frontend>
+    <admin>
+
+    </admin>
+    <default>
+
+    </default>
+</config>
