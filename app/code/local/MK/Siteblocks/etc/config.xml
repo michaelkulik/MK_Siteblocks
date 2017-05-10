@@ -30,17 +30,51 @@
                 </setup>
             </siteblocks_setup>
         </resources>
-        <helper>
-
-        </helper>
+        <helpers>
+            <siteblocks>
+                <class>MK_Siteblocks_Helper</class>
+            </siteblocks>
+        </helpers>
     </global>
     <frontend>
-
+        <routers>
+            <siteblocks><!--произвольное название узла-->
+                <use>standard</use>
+                <args>
+                    <module>MK_Siteblocks</module>
+                    <frontName>siteblocks</frontName> <!-- - domain.ru/значение этого узла/... -->
+                </args>
+            </siteblocks>
+        </routers>
+        <translate>
+            <modules>
+                <MK_Siteblocks>
+                    <files>
+                        <default>MK_Siteblocks.csv</default>
+                    </files>
+                </MK_Siteblocks>
+            </modules>
+        </translate>
     </frontend>
     <admin>
-
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <!--низе: значение - путь до контроллера-->
+                        <siteblocks before="Mage_Adminhtml">MK_Siteblocks_Adminhtml</siteblocks>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
     </admin>
     <default>
-
+        <!--настройки по дефолту для модуля в разделе System->Configuration-->
+        <siteblocks>
+            <settings>
+                <enabled>1</enabled>
+                <block_count>5</block_count>
+            </settings>
+        </siteblocks>
     </default>
 </config>
