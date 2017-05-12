@@ -1,27 +1,23 @@
 <?xml version="1.0"?>
 <config>
-    <!--<menu>-->
-         <!--<cms translate="title" module="cms">-->
-            <!--<title>CMS</title>-->
-            <!--<sort_order>70</sort_order>-->
-            <!--<children>-->
-                <!--<page translate="title" module="cms">-->
-                    <!--<title>Pages</title>-->
-                    <!--<action>adminhtml/cms_page</action>-->
-                    <!--<sort_order>0</sort_order>-->
-                <!--</page>-->
-                <!--<block translate="title" module="cms">-->
-                    <!--<title>Static Blocks</title>-->
-                    <!--<action>adminhtml/cms_block</action>-->
-                    <!--<sort_order>10</sort_order>-->
-                <!--</block>-->
-            <!--</children>-->
-         <!--</cms>-->
-    <!--</menu>-->
+    <menu>
+         <cms>
+            <children>
+                <siteblocks translate="title" module="siteblocks">
+                    <title>Siteblocks</title>
+                    <action>adminhtml/siteblocks</action>
+                    <sort_order>70</sort_order>
+                </siteblocks>
+            </children>
+         </cms>
+    </menu>
     <acl>
         <resources>
             <admin>
                 <children>
+                    <!--резрешение настроек модуля-->
+                    <!--доступ к настройкам модуля лежит в категории System->Configuration
+                        поэтому такая структура определена ниже (system->children->config->children)-->
                     <system>
                         <children>
                             <config>
@@ -33,6 +29,14 @@
                             </config>
                         </children>
                     </system>
+                    <!--резрешение доступа к пункту меню модуля-->
+                    <cms>
+                        <children>
+                            <siteblocks translate="title" module="siteblocks">
+                                <title>Siteblocks</title>
+                            </siteblocks>
+                        </children>
+                    </cms>
                 </children>
             </admin>
         </resources>

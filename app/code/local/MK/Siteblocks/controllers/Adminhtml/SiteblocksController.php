@@ -4,6 +4,6 @@ class MK_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contro
 {
     public function indexAction()
     {
-        die($this->getRequest()->getParams());
+        var_dump($this->getRequest()->getParams());
     }
 }

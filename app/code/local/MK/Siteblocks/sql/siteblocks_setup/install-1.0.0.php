@@ -33,5 +33,7 @@ $table = $installer->getConnection()
     ->addColumn('created_at', Varien_Db_Ddl_Table::TYPE_DATETIME, [
         'nullable' => false
     ]);
-$installer->getConnection()->createTable($table);
+if (!$installer->getConnection()->isTableExists($installer->getTable('siteblocks/block'))) {
+    $installer->getConnection()->createTable($table);
+}
 $installer->endSetup();

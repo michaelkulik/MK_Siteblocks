@@ -7,7 +7,9 @@
     </modules>
     <global>
         <blocks>
-
+            <siteblocks><!--<block type="this_word/name_of_block_in_directory_Block"-->
+                <class>MK_Siteblocks_Block</class>
+            </siteblocks>
         </blocks>
         <models>
             <siteblocks><!--от этого имени зависит то, как мы будем вызывать нашу модель-->
@@ -15,7 +17,7 @@
                 <resourceModel>siteblocks_resource</resourceModel><!--указываем название узла ниже-->
             </siteblocks>
             <siteblocks_resource>
-                <class>MK_Siteblocks_Resource</class>
+                <class>MK_Siteblocks_Model_Resource</class>
                 <entities><!--в этой секции декларируем таблицы БД-->
                     <block><!--это название модели Block.php (произвольное), а в дочернем узле - таблица, с которой наша модель работает-->
                         <table>mk_siteblock</table><!--такое название как в БД-->
@@ -37,6 +39,13 @@
         </helpers>
     </global>
     <frontend>
+        <layout>
+            <updates>
+                <siteblocks module="siteblocks">
+                    <file>siteblocks.xml</file>
+                </siteblocks>
+            </updates>
+        </layout>
         <routers>
             <siteblocks><!--произвольное название узла-->
                 <use>standard</use>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+    <siteblocks_index_index><!--<frontName> route_controller_action-->
+        <reference name="content">
+            <block type="siteblocks/list" as="siteblocks" name="siteblocks.list"/>
+            <!--type="имя_данное_узлу_в_сonfig.xml/имя_файла_блока"-->
+        </reference>
+    </siteblocks_index_index>
+    <!--Для вывода нашего модуля в имеющихся в Magento местах-->
+    <catalog_product_view>
+        <reference name="content">
+            <block type="siteblocks/list" as="siteblocks" name="siteblocks.list" before=""/>
+            <!--атрибут before="" делает отображение нашего модуля выше товара на виде карточки товара-->
+        </reference>
+    </catalog_product_view>
+</layout>
