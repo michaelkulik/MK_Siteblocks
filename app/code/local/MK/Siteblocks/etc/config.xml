@@ -37,6 +37,17 @@
                 <class>MK_Siteblocks_Helper</class>
             </siteblocks>
         </helpers>
+        <events>
+            <checkout_cart_product_add_after>
+                <observers>
+                    <siteblocks>
+                        <class>siteblocks/observer</class>
+                        <method>checkout_cart_product_add_after</method>
+                        <type>model</type><!--необязательный параметр-->
+                    </siteblocks>
+                </observers>
+            </checkout_cart_product_add_after>
+        </events>
     </global>
     <frontend>
         <layout>
