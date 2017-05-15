@@ -54,6 +54,7 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_
                 'id' => 'edit_form',
                 'action' => $this->getUrl('*/*/save', ['block_id' => $this->getRequest()->getParam('block_id')]),
                 'method' => 'post',
+                'enctype' => 'multipart/form-data',
             )
         );
 
@@ -78,15 +79,21 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_
             'label'     => Mage::helper('siteblocks')->__('Status'),
             'title'     => Mage::helper('siteblocks')->__('Status'),
             'name'      => 'block_status',
-            'required'  => false,
             'options'   => Mage::getModel('siteblocks/source_status')->toArray(),
         ));
+
+//        $fieldset->addType('myimage', 'MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Renderer_Myimage');
+        $fieldset->addField('image', 'myimage', [
+            'label'     => Mage::helper('siteblocks')->__('Image'),
+            'title'     => Mage::helper('siteblocks')->__('Image'),
+            'name'      => 'image',
+        ]);
 
         $fieldset->addField('content', 'editor', array(
             'name'      => 'content',
             'label'     => Mage::helper('siteblocks')->__('Content'),
             'title'     => Mage::helper('siteblocks')->__('Content'),
-            'style'     => 'height:16em',
+            'style'     => 'height:10em',
             'required'  => false,
             //'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig()
         ));

@@ -66,6 +66,15 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Grid extends Mage_Adminhtml_Block
             'options'   => Mage::getModel('siteblocks/source_status')->toArray(),
         ));
 
+        $this->addColumn('image', [
+            'header' => Mage::helper('siteblocks')->__('Image'),
+            'index'  => 'image',
+            'align'  => 'left',
+            'renderer' => 'MK_Siteblocks_Block_Adminhtml_Siteblocks_Grid_Renderer_Image',
+            'filter'   => false,
+            'sortable' => false,
+        ]);
+
         $this->addColumn('created_at', array(
             'header'    => Mage::helper('siteblocks')->__('Date Created'),
             'index'     => 'creation_time',

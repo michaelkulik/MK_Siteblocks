@@ -40,7 +40,7 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks extends Mage_Adminhtml_Block_Widg
         // укажем _blockGroup, так как наша админкская зона находится внутри нашего модуля, а не в Mage/Core/Adminhtml,
         // а в _prepareLayout() блок формируется так: $this->_blockGroup.'/' . $this->_controller . '_grid'
         $this->_blockGroup = 'siteblocks';
-        $this->_headerText = Mage::helper('siteblocks')->__('SiteBlocks');
+        $this->_headerText = Mage::helper('siteblocks')->__('Siteblocks');
         $this->_addButtonLabel = Mage::helper('siteblocks')->__('Add New Siteblock');
         parent::__construct();
     }

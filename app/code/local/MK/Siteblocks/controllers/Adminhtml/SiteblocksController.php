@@ -35,7 +35,9 @@ class MK_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contro
             $id = $this->getRequest()->getParam('block_id');
             $block = Mage::getModel('siteblocks/block')->load($id);
             $block
-                ->setData($this->getRequest()->getParams())
+                ->setData($this->getRequest()->getParams());
+            $this->_uploadFile('image', $block); // после setData(), так как в этом методе делается $this->_hasDataChanges = true; (в методе load() - $this->_hasDataChanges = false;)
+            $block
                 ->setCreatedAt(Mage::app()->getLocale()->date())
                 ->save();
             $message = ($id) ? 'Siteblock was updated successfully.' : 'Siteblock was created successfully.';
@@ -97,5 +99,31 @@ class MK_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contro
         }
         Mage::getSingleton('adminhtml/session')->addSuccess('Siteblocks were updated.');
         return $this->_redirect('*/*/');
+    }
+
+    protected function _uploadFile($fieldName, $model)
+    {
+        if (!isset($_FILES[$fieldName])) {
+            return false;
+        }
+        $file = $_FILES[$fieldName];
+        if (isset($file['name']) && (file_exists($file['tmp_name']))) {
+            if ($model->getId()) {
+                unlink(Mage::getBaseDir('media') . DS . $model->getData($fieldName));
+            }
+            try {
+                $path = Mage::getBaseDir('media') . DS . 'siteblocks' . DS;
+                $uploader = new Varien_File_Uploader($file);
+                $uploader->setAllowedExtensions(['jpg', 'jpeg', 'png', 'gif']);
+                $uploader->setAllowRenameFiles(true);
+                $uploader->setFilesDispersion(false);
+
+                $uploader->save($path, $file['name']);
+                $model->setData($fieldName, $uploader->getUploadedFileName());
+                return true;
+            } catch (Exception $e) {
+                return false;
+            }
+        }
     }
 }
