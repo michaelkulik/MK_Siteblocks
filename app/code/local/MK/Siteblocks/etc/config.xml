@@ -97,4 +97,16 @@
             </settings>
         </siteblocks>
     </default>
+    <crontab>
+        <jobs>
+            <siteblocks_clear_cache>
+                <schedule>
+                    <cron_expr>* * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>siteblocks/cron::siteblocks_clear_cache</model>
+                </run>
+            </siteblocks_clear_cache>
+        </jobs>
+    </crontab>
 </config>
