@@ -11,7 +11,26 @@ class MK_Siteblocks_Block_List extends Mage_Core_Block_Template
 
     public function getBlocks()
     {
-        return Mage::getModel('siteblocks/block')->getCollection()->addFieldToFilter(
+        $items = Mage::getModel('siteblocks/block')->getCollection()->addFieldToFilter(
             'block_status', ['eq' => MK_Siteblocks_Model_Source_Status::ENABLED]);// с фильтрацией по block_status
+        $filteredItems = $items;
+        // проверка на то, что блок рендерится на странице товара, а не в другом месте
+        if (Mage::registry('current_product') instanceof Mage_Catalog_Model_Product) {
+            $filteredItems = [];
+            /** @var MK_Siteblocks_Model_Block $item */
+            foreach ($items as $item) {
+                // если для текущего товара выполняются условия(-е), установленные для сайтблока
+                if ($item->validate(Mage::registry('current_product'))) {
+                    $filteredItems[] = $item;
+                }
+            }
+        }
+        return $filteredItems;
+    }
+
+    public function getBlockContent($block)
+    {
+        $processor = Mage::helper('cms')->getBlockTemplateProcessor();
+        return $processor->filter($block->getContent());
     }
 }

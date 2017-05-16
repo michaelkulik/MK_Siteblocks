@@ -34,8 +34,13 @@ class MK_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contro
         try {
             $id = $this->getRequest()->getParam('block_id');
             $block = Mage::getModel('siteblocks/block')->load($id);
-            $block
-                ->setData($this->getRequest()->getParams());
+
+            $data = $this->getRequest()->getParams();
+            if (isset($data['rule']['conditions'])) {
+                $data['conditions'] = $data['rule']['conditions'];
+                unset($data['rule']);
+            }
+            $block->loadPost($data);
             $this->_uploadFile('image', $block); // после setData(), так как в этом методе делается $this->_hasDataChanges = true; (в методе load() - $this->_hasDataChanges = false;)
             $block
                 ->setCreatedAt(Mage::app()->getLocale()->date())

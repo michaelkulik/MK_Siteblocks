@@ -8,8 +8,8 @@
     </siteblocks_index_index>
     <!--Для вывода нашего модуля в имеющихся в Magento местах-->
     <catalog_product_view>
-        <reference name="content">
-            <block type="siteblocks/list" as="siteblocks" name="siteblocks.list" before=""/>
+        <reference name="product.info.extrahint">
+            <block type="siteblocks/list" as="siteblocks" name="siteblocks.list" before="-" />
             <!--атрибут before="" делает отображение нашего модуля выше товара на виде карточки товара-->
         </reference>
     </catalog_product_view>
