@@ -95,7 +95,7 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_
             'title'     => Mage::helper('siteblocks')->__('Content'),
             'style'     => 'height:10em',
             'required'  => false,
-            //'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig()
+            'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig(),
         ));
 
         $form->setValues($model->getData());
@@ -103,6 +103,14 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_
         $this->setForm($form);
 
         return parent::_prepareForm();
+    }
+
+    protected function _prepareLayout()
+    {
+        parent::_prepareLayout();
+        if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
+            $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
+        }
     }
 
 }

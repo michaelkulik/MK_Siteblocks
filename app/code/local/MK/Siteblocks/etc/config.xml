@@ -88,6 +88,15 @@
             </adminhtml>
         </routers>
     </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <siteblocks module="siteblocks">
+                    <file>siteblocks.xml</file>
+                </siteblocks>
+            </updates>
+        </layout>
+    </adminhtml>
     <default>
         <!--настройки по дефолту для модуля в разделе System->Configuration-->
         <siteblocks>

@@ -44,6 +44,16 @@
                             <comment>Count of blocks on one output</comment>
                             <depends><enabled>1</enabled></depends>
                         </block_count>
+                        <raw_text>
+                            <label>Raw Text</label>
+                            <frontend_type>siteblockseditor</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_Website>1</show_in_Website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Some additional text</comment>
+                            <depends><enabled>1</enabled></depends>
+                        </raw_text>
                     </fields>
                 </settings>
             </groups>
