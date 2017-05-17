@@ -1,29 +1,7 @@
 <?php
 
-class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Tab_Conditions extends Mage_Adminhtml_Block_Widget_Form implements Mage_Adminhtml_Block_Widget_Tab_Interface
+class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Tab_Conditions extends Mage_Adminhtml_Block_Widget_Form
 {
-    public function getTabLabel()
-    {
-        return Mage::helper('siteblocks')->__('Conditions');
-    }
-
-    public function getTabtitle()
-    {
-        return Mage::helper('siteblocks')->__('Conditions');
-    }
-
-    public function canShowTab()
-    {
-        return true;
-    }
-
-    public function isHidden()
-    {
-        return false;
-    }
-    /**
-     * Init form
-     */
     public function __construct()
     {
         parent::__construct();

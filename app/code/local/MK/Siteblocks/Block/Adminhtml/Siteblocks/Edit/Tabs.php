@@ -18,11 +18,14 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Tabs extends Mage_Adminhtml_
             'title' => $this->__('Main'),
             'content' => $this->getLayout()->createBlock('siteblocks/adminhtml_siteblocks_edit_tab_main')->toHtml(), // содержимое табы
         ]);
-//        $this->addTab('conditions_tab', [
-//            'label' => $this->__('Rule Condition'),
-//            'title' => $this->__('Rule Condition'),
-//            'content' => $this->getLayout()->createBlock('siteblocks/adminhtml_siteblocks_edit_tab_conditions')->toHtml(),
-//        ]);
+
+        $this->addTab('conditions_tab', [
+            'label' => $this->__('Rule Condition Output'),
+            'title' => $this->__('Rule Condition Output'),
+            'content' => $this->getLayout()->createBlock('siteblocks/adminhtml_siteblocks_edit_tab_conditions')->toHtml(),
+        ]);
+        $this->addTab('products_tab', 'siteblocks/adminhtml_siteblocks_edit_tab_products'); // при добавлении
+        // со вторым параметром массивом не будут делаться ajax запросы
         return parent::_prepareLayout();
     }
 }

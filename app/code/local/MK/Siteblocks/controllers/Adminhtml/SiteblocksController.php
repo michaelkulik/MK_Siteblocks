@@ -25,7 +25,8 @@ class MK_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contro
             Mage::registry('siteblocks_block')->setData($blockObject);
         }
         $this->loadLayout();
-//        $this->_addLeft($this->getLayout()->createBlock('siteblocks/adminhtml_siteblocks_edit_tabs'));
+//        $this->_addLeft($this->getLayout()->createBlock('siteblocks/adminhtml_siteblocks_edit_tabs')); // закомментировали,
+        // так как добавление левой колонки с табами делается в лайауте
         $this->_addContent($this->getLayout()->createBlock('siteblocks/adminhtml_siteblocks_edit'));
         $this->renderLayout();
     }
@@ -37,6 +38,18 @@ class MK_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contro
             $block = Mage::getModel('siteblocks/block')->load($id);
 
             $data = $this->getRequest()->getParams();
+
+            $links = $this->getRequest()->getPost('links');
+
+            if (array_key_exists('products', $links)) {
+                $selectedProducts = Mage::helper('adminhtml/js')->decodeGridSerializedInput($links['products']);
+                $products = [];
+                foreach ($selectedProducts as $productId => $position) {
+                    $products[$productId] = isset($position['position']) ? $position['position'] : $productId;
+                }
+                $data['products'] = $products;
+            }
+
             if (isset($data['rule']['conditions'])) {
                 $data['conditions'] = $data['rule']['conditions'];
                 unset($data['rule']);
@@ -131,5 +144,15 @@ class MK_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contro
                 return false;
             }
         }
+    }
+
+    public function productsAction()
+    {
+        $this->loadLayout()->renderLayout();
+    }
+
+    public function productsgridAction()
+    {
+        $this->loadLayout()->renderLayout();
     }
 }
