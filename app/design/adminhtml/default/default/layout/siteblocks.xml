@@ -6,8 +6,17 @@
             <action method="setCanLoadExtJs"><flag>1</flag></action>
             <action method="setCanLoadRulesJs"><flag>1</flag></action>
         </reference>
+        <!--добавим табы-->
+        <reference name="left">
+            <block type="siteblocks/adminhtml_siteblocks_edit_tabs" name="siteblocks_tabs">
+                <block name="conditions_tab" type="siteblocks/adminhtml_siteblocks_edit_tab_conditions"/>
+                <action method="addTab"><name>my_conditions</name><block>conditions_tab</block></action>
+            </block>
+        </reference>
     </adminhtml_siteblocks_edit>
     <adminhtml_system_config_edit>
         <update handle="editor"/>
     </adminhtml_system_config_edit>
+
+
 </layout>

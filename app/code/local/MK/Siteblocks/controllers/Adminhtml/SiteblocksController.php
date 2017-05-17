@@ -25,6 +25,7 @@ class MK_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contro
             Mage::registry('siteblocks_block')->setData($blockObject);
         }
         $this->loadLayout();
+//        $this->_addLeft($this->getLayout()->createBlock('siteblocks/adminhtml_siteblocks_edit_tabs'));
         $this->_addContent($this->getLayout()->createBlock('siteblocks/adminhtml_siteblocks_edit'));
         $this->renderLayout();
     }
