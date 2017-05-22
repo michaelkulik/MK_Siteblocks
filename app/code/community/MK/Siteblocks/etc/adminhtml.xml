@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<config>
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system><!--меню в админке System-->
+                        <children>
+                            <config><!--меню в админке System, пункт Configuration-->
+                                <children>
+                                    <siteblocks translate="title" module="siteblocks">
+                                        <title>Siteblocks</title>
+                                    </siteblocks>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <!--<menu>
+        <system>
+            <children>
+                <api translate="title" module="api">
+                    <title>Web Services</title>
+                    <sort_order>25</sort_order>
+                    <children>
+                        <users translate="title">
+                            <title>SOAP/XML-RPC - Users</title>
+                            <action>adminhtml/api_user</action>
+                            <sort_order>10</sort_order>
+                        </users>
+                        <roles translate="title">
+                            <title>SOAP/XML-RPC - Roles</title>
+                            <action>adminhtml/api_role</action>
+                            <sort_order>20</sort_order>
+                        </roles>
+                    </children>
+                </api>
+            </children>
+        </system>
+    </menu>-->
+</config>

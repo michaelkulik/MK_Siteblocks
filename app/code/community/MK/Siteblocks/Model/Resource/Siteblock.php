@@ -1,0 +1,9 @@
+<?php
+
+class MK_Siteblocks_Model_Resource_Siteblock extends Mage_Core_Model_Mysql4_Abstract
+{
+    public function _construct()
+    {
+        $this->_init('siteblocks/siteblock', 'siteblock_id');
+    }
+}
