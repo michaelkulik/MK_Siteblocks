@@ -1,37 +1,5 @@
 <?php
-/**
- * Magento
- *
- * NOTICE OF LICENSE
- *
- * This source file is subject to the Open Software License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
- * If you did not receive a copy of the license and are unable to
- * obtain it through the world-wide-web, please send an email
- * to license@magento.com so we can send you a copy immediately.
- *
- * DISCLAIMER
- *
- * Do not edit or add to this file if you wish to upgrade Magento to newer
- * versions in the future. If you wish to customize Magento for your
- * needs please refer to http://www.magento.com for more information.
- *
- * @category    Mage
- * @package     Mage_Adminhtml
- * @copyright  Copyright (c) 2006-2016 X.commerce, Inc. and affiliates (http://www.magento.com)
- * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
- */
 
-
-/**
- * Adminhtml cms block edit form
- *
- * @category   Mage
- * @package    Mage_Adminhtml
- * @author      Magento Core Team <core@magentocommerce.com>
- */
 class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_Block_Widget_Form
 {
 
@@ -42,7 +10,7 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_
     {
         parent::__construct();
         $this->setId('block_form');
-        $this->setTitle(Mage::helper('cms')->__('Block Information'));
+        $this->setTitle(Mage::helper('siteblocks')->__('Siteblock Information'));
     }
 
     /**
@@ -58,80 +26,50 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_
 
     protected function _prepareForm()
     {
-        $model = Mage::registry('cms_block');
+        $model = Mage::registry('siteblocks_block');
 
         $form = new Varien_Data_Form(
-            array('id' => 'edit_form', 'action' => $this->getData('action'), 'method' => 'post')
+            array(
+                'id' => 'edit_form',
+                'action' => $this->getUrl('*/*/save', ['siteblock_id' => $this->getRequest()->getParam('siteblock_id')]),
+                'method' => 'post')
         );
 
         $form->setHtmlIdPrefix('block_');
 
-        $fieldset = $form->addFieldset('base_fieldset', array('legend'=>Mage::helper('cms')->__('General Information'), 'class' => 'fieldset-wide'));
+        $fieldset = $form->addFieldset('base_fieldset',
+            array(
+                'legend'=>Mage::helper('siteblocks')->__('General Information'),
+                'class' => 'fieldset-wide'
+            )
+        );
 
-        if ($model->getBlockId()) {
-            $fieldset->addField('block_id', 'hidden', array(
-                'name' => 'block_id',
+        if ($model->getId()) {
+            $fieldset->addField('siteblock_id', 'hidden', array(
+                'name' => 'siteblock_id',
             ));
         }
 
         $fieldset->addField('title', 'text', array(
             'name'      => 'title',
-            'label'     => Mage::helper('cms')->__('Block Title'),
-            'title'     => Mage::helper('cms')->__('Block Title'),
+            'label'     => Mage::helper('siteblocks')->__('Block Title'),
+            'title'     => Mage::helper('siteblocks')->__('Block Title'),
             'required'  => true,
         ));
 
-        $fieldset->addField('identifier', 'text', array(
-            'name'      => 'identifier',
-            'label'     => Mage::helper('cms')->__('Identifier'),
-            'title'     => Mage::helper('cms')->__('Identifier'),
-            'required'  => true,
-            'class'     => 'validate-xml-identifier',
+        $field =$fieldset->addField('block_status', 'select', array(
+            'label'     => Mage::helper('siteblocks')->__('Siteblock Status'),
+            'title'     => Mage::helper('siteblocks')->__('Siteblock Status'),
+            'name'      => 'block_status',
+            'options'    => Mage::getModel('siteblocks/source_status')->toArray(),
         ));
-
-        /**
-         * Check is single store mode
-         */
-        if (!Mage::app()->isSingleStoreMode()) {
-            $field =$fieldset->addField('store_id', 'multiselect', array(
-                'name'      => 'stores[]',
-                'label'     => Mage::helper('cms')->__('Store View'),
-                'title'     => Mage::helper('cms')->__('Store View'),
-                'required'  => true,
-                'values'    => Mage::getSingleton('adminhtml/system_store')->getStoreValuesForForm(false, true),
-            ));
-            $renderer = $this->getLayout()->createBlock('adminhtml/store_switcher_form_renderer_fieldset_element');
-            $field->setRenderer($renderer);
-        }
-        else {
-            $fieldset->addField('store_id', 'hidden', array(
-                'name'      => 'stores[]',
-                'value'     => Mage::app()->getStore(true)->getId()
-            ));
-            $model->setStoreId(Mage::app()->getStore(true)->getId());
-        }
-
-        $fieldset->addField('is_active', 'select', array(
-            'label'     => Mage::helper('cms')->__('Status'),
-            'title'     => Mage::helper('cms')->__('Status'),
-            'name'      => 'is_active',
-            'required'  => true,
-            'options'   => array(
-                '1' => Mage::helper('cms')->__('Enabled'),
-                '0' => Mage::helper('cms')->__('Disabled'),
-            ),
-        ));
-        if (!$model->getId()) {
-            $model->setData('is_active', '1');
-        }
 
         $fieldset->addField('content', 'editor', array(
             'name'      => 'content',
-            'label'     => Mage::helper('cms')->__('Content'),
-            'title'     => Mage::helper('cms')->__('Content'),
-            'style'     => 'height:36em',
-            'required'  => true,
-            'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig()
+            'label'     => Mage::helper('siteblocks')->__('Content'),
+            'title'     => Mage::helper('siteblocks')->__('Content'),
+            'style'     => 'height:16em',
+//            'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig()
         ));
 
         $form->setValues($model->getData());

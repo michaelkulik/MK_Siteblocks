@@ -9,6 +9,8 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Grid extends Mage_Adminhtml_Block
         $this->setId('siteblock_id');
         $this->setDefaultSort('siteblock_id');
         $this->setDefaultDir('ASC');
+        // если в массовом действии не будет выбрано элементов
+        $this->setErrorText(Mage::helper('siteblocks')->jsQuoteEscape(Mage::helper('siteblocks')->__('Please select items.')));
     }
 
     protected function _prepareCollection()
@@ -42,6 +44,30 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Grid extends Mage_Adminhtml_Block
         ));
 
         return parent::_prepareColumns();
+    }
+
+    public function _prepareMassaction()
+    {
+        $this->setMassactionIdField('siteblock_id');
+        $this->getMassactionBlock()->setIdFieldName('siteblock_id');
+        $this->getMassactionBlock()
+            ->addItem('delete', [
+                'label' => Mage::helper('siteblocks')->__('Delete'),
+                'url'   => $this->getUrl('*/*/massDelete'),
+                'confirm' => Mage::helper('siteblocks')->__('Are you sure delete selected items?')
+            ])
+            ->addItem('status', [
+                'label' => Mage::helper('siteblocks')->__('Update status'),
+                'url'   => $this->getUrl('*/*/massStatus'),
+                'additional' => ['block_status' => [
+                    'name' => 'block_status',
+                    'type' => 'select',
+                    'class' => 'required-entry',
+                    'label' => Mage::helper('siteblocks')->__('Status'),
+                    'values' => Mage::getModel('siteblocks/source_status')->toOptionArray()
+                ]]
+            ]);
+        return $this;
     }
 
     /**

@@ -31,6 +31,16 @@
                 </siteblocks>
             </updates>
         </layout>
+        <events>
+            <checkout_cart_product_add_after>
+                <observers>
+                    <siteblocks>
+                        <class>siteblocks/observer</class>
+                        <method>checkout_cart_product_add_after</method>
+                    </siteblocks>
+                </observers>
+            </checkout_cart_product_add_after>
+        </events>
     </frontend>
     <adminhtml>
         <translate>
