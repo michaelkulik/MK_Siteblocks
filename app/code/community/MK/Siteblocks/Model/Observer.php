@@ -22,7 +22,6 @@ class MK_Siteblocks_Model_Observer
                 ->setContent($data['product']->getDescription())
                 ->setCreatedAt(Mage::app()->getLocale()->date())
                 ->save();
-            echo 'создан';
         } catch (Exception $e) {
             Mage::logException($e);
         }

@@ -30,6 +30,15 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Grid extends Mage_Adminhtml_Block
             'type'     => 'text',
         ));
 
+        $this->addColumn('image', [
+            'header'    => Mage::helper('siteblocks')->__('Image'),
+            'align'     => 'left',
+            'index'     => 'image',
+            'filter'   => false,
+            'sortable' => false,
+            'renderer' => 'MK_Siteblocks_Block_Adminhtml_Siteblocks_Grid_Renderer_Image'
+        ]);
+
         $this->addColumn('block_status', array(
             'header'    => Mage::helper('siteblocks')->__('Status'),
             'index'     => 'block_status',

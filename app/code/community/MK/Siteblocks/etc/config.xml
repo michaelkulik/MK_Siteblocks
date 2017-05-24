@@ -2,7 +2,7 @@
 <config>
     <modules>
         <MK_Siteblocks>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </MK_Siteblocks>
     </modules>
     <frontend>
@@ -116,4 +116,16 @@
             </settings>
         </siteblocks>
     </default>
+    <crontab>
+        <jobs>
+            <create_new_siteblock>
+                <schedule>
+                    <cron_expr>always</cron_expr>
+                </schedule>
+                <run>
+                    <model>siteblocks/cron::create_new_siteblock</model>
+                </run>
+            </create_new_siteblock>
+        </jobs>
+    </crontab>
 </config>

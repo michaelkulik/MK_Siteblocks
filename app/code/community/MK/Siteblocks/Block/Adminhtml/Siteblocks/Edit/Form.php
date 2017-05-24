@@ -32,7 +32,9 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_
             array(
                 'id' => 'edit_form',
                 'action' => $this->getUrl('*/*/save', ['siteblock_id' => $this->getRequest()->getParam('siteblock_id')]),
-                'method' => 'post')
+                'method' => 'post',
+                'enctype'  => 'multipart/form-data',
+            )
         );
 
         $form->setHtmlIdPrefix('block_');
@@ -57,12 +59,18 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_
             'required'  => true,
         ));
 
-        $field =$fieldset->addField('block_status', 'select', array(
+        $fieldset->addField('block_status', 'select', array(
             'label'     => Mage::helper('siteblocks')->__('Siteblock Status'),
             'title'     => Mage::helper('siteblocks')->__('Siteblock Status'),
             'name'      => 'block_status',
             'options'    => Mage::getModel('siteblocks/source_status')->toArray(),
         ));
+        $fieldset->addType('myimage', 'MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Renderer_Myimage');
+        $fieldset->addField('image', 'myimage', [
+            'name'      => 'image',
+            'label'     => Mage::helper('siteblocks')->__('Image'),
+            'title'     => Mage::helper('siteblocks')->__('Image'),
+        ]);
 
         $fieldset->addField('content', 'editor', array(
             'name'      => 'content',

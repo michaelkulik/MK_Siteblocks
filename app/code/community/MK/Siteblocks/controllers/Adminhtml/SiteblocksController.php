@@ -29,13 +29,15 @@ class MK_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contro
 
     public function saveAction()
     {
+//        var_dump($this->getRequest()->getParams());die;
         try {
             $id = $this->getRequest()->getParam('siteblock_id');
             $siteblock = Mage::getModel('siteblocks/siteblock')->load($id);
             $siteblock
                 ->setData($this->getRequest()->getParams())
-                ->setCreatedAt(Mage::app()->getLocale()->date())
-                ->save();
+                ->setCreatedAt(Mage::app()->getLocale()->date());
+            $this->_uploadFile('image', $siteblock);
+            $siteblock->save();
             $message = ($id) ? 'Siteblock was updated successfully' : 'Siteblock was created successfully';
             Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('siteblocks')->__($message));
             if (!$siteblock->getId()) {
@@ -93,5 +95,32 @@ class MK_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contro
         }
         Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('siteblocks')->__('Siteblocks were updated!'));
         return $this->_redirect('*/*/');
+    }
+
+    protected function _uploadFile($fieldName, $model)
+    {
+        if (!isset($_FILES[$fieldName])) {
+            return false;
+        }
+        $file = $_FILES[$fieldName];
+        if (isset($file['name']) && (file_exists($file['tmp_name']))) {
+            if ($model->getId()) {
+                unlink(Mage::getBaseDir('media') . DS . 'siteblocks' . DS . $model->getData($fieldName)['value']);
+            }
+            try {
+                $path = Mage::getBaseDir('media') . DS . 'siteblocks' . DS;
+                $uploader = new Varien_File_Uploader($file);
+                $uploader->setAllowedExtensions(['jpg', 'jpeg', 'png', 'gif']);
+                $uploader->setAllowRenameFiles(true);
+                $uploader->setFilesDispersion(false);
+                $uploader->save($path, $file['name']);
+                $model->setData($fieldName, $uploader->getUploadedFileName());
+                return true;
+            } catch (Exception $e) {
+                Mage::logException($e);
+                return false;
+            }
+        }
+        return false;
     }
 }
