@@ -77,7 +77,7 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_
             'label'     => Mage::helper('siteblocks')->__('Content'),
             'title'     => Mage::helper('siteblocks')->__('Content'),
             'style'     => 'height:16em',
-//            'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig()
+            'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig()
         ));
 
         $form->setValues($model->getData());

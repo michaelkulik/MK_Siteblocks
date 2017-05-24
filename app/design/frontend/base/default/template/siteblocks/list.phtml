@@ -1,6 +1,11 @@
-<?php foreach ($this->getBlocks() as $block): ?>
+<?php foreach ($this->getBlocks() as $siteblock): ?>
 <div class="siteblock">
-    <div class="siteblock-title"><?php echo Mage::helper('siteblocks')->escapeHtml($block->getTitle()) ?></div>
-    <div class="siteblock-content"><?php echo Mage::helper('siteblocks')->escapeHtml($block->getContent()) ?></div>
+    <div class="siteblock-title"><?php echo Mage::helper('siteblocks')->escapeHtml($siteblock->getTitle()) ?></div>
+    <div class="block-image">
+        <?php if ($siteblock->getImage() && $siteblock->getImage() != 'Array'): ?>
+            <img src="<?php echo $siteblock->getImageSrc() ?>" height="100" width="auto" alt="<?php echo $siteblock->getTitle() ?>" title="<?php echo $siteblock->getTitle() ?>">
+        <?php endif; ?>
+    </div>
+    <div class="siteblock-content"><?php echo $this->getBlockContent($siteblock) ?></div>
 </div>
 <?php endforeach; ?>

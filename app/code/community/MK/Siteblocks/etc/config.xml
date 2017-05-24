@@ -52,6 +52,13 @@
                 </MK_Siteblocks>
             </modules>
         </translate>
+        <layout>
+            <updates>
+                <siteblocks module="siteblocks">
+                    <file>siteblocks.xml</file>
+                </siteblocks>
+            </updates>
+        </layout>
     </adminhtml>
     <global>
         <models>
