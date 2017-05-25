@@ -33,8 +33,13 @@ class MK_Siteblocks_Adminhtml_SiteblocksController extends Mage_Adminhtml_Contro
         try {
             $id = $this->getRequest()->getParam('siteblock_id');
             $siteblock = Mage::getModel('siteblocks/siteblock')->load($id);
+            $data = $this->getRequest()->getParams();
+            if (isset($data['rule']['conditions'])) {
+                $data['conditions'] = $data['rule']['conditions'];
+                unset($data['rule']);
+            }
             $siteblock
-                ->setData($this->getRequest()->getParams())
+                ->loadPost($data)
                 ->setCreatedAt(Mage::app()->getLocale()->date());
             $this->_uploadFile('image', $siteblock);
             $siteblock->save();

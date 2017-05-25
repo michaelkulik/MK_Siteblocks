@@ -37,7 +37,7 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Renderer_Myimage extends Var
         }
         $this->setClass('input-file');
         $html .= parent::getElementHtml();
-        $html .= $this->_getDeleteCheckbox();
+//        $html .= $this->_getDeleteCheckbox();
 
         return $html;
     }

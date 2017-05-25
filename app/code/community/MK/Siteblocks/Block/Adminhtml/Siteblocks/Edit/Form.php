@@ -9,7 +9,7 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_
     public function __construct()
     {
         parent::__construct();
-        $this->setId('block_form');
+//        $this->setId('siteblock_form');
         $this->setTitle(Mage::helper('siteblocks')->__('Siteblock Information'));
     }
 
@@ -37,7 +37,7 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_
             )
         );
 
-        $form->setHtmlIdPrefix('block_');
+        $form->setHtmlIdPrefix('siteblock_');
 
         $fieldset = $form->addFieldset('base_fieldset',
             array(
@@ -79,6 +79,23 @@ class MK_Siteblocks_Block_Adminhtml_Siteblocks_Edit_Form extends Mage_Adminhtml_
             'style'     => 'height:16em',
             'config'    => Mage::getSingleton('cms/wysiwyg_config')->getConfig()
         ));
+
+        $model->getConditions()->setJsFormObject('siteblock_conditions_fieldset');
+        $renderer = Mage::getBlockSingleton('adminhtml/widget_form_renderer_fieldset')
+            ->setTemplate('promo/fieldset.phtml')
+            ->setNewChildUrl(
+                $this->getUrl('*/promo_catalog/newConditionHtml/form/siteblock_conditions_fieldset')
+            );
+
+        $fieldset = $form->addFieldset('conditions_fieldset', array(
+                'legend'=>Mage::helper('siteblocks')->__('Conditions (leave blank for all products)'))
+        )->setRenderer($renderer);
+
+        $fieldset->addField('conditions', 'text', array(
+            'name' => 'conditions',
+            'label' => Mage::helper('siteblocks')->__('Conditions'),
+            'title' => Mage::helper('siteblocks')->__('Conditions'),
+        ))->setRule($model)->setRenderer(Mage::getBlockSingleton('rule/conditions'));
 
         $form->setValues($model->getData());
         $form->setUseContainer(true);
