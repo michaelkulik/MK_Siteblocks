@@ -28,8 +28,18 @@ class MK_Siteblocks_Block_List extends Mage_Core_Block_Template
         return $processor->filter($siteblock->getContent());
     }
 
-    public function getImageSrc($siteblock)
+    public function getProductsList($siteblock)
     {
-
+        $products = $siteblock->getProducts();
+        asort($products);// отсортируем по значениям элементов массива (что является позициями товара) по возрастанию
+        $collection = Mage::getResourceModel('catalog/product_collection')
+            ->addFieldToFilter('entity_id', ['in' => array_keys($products)])
+            ->addAttributeToSelect('*');
+        /** @var Mage_Catalog_Block_Product_List $list */
+        $list = $this->getLayout()->createBlock('catalog/product_list'); // сэтаем блок Mage_Catalog_Block_Product_List
+        $list->setCollection($collection); // передаём в сетнутый блок коллекцию
+        $list->setTemplate('siteblocks/product/list.phtml');
+        return $list->toHtml();
     }
+
 }

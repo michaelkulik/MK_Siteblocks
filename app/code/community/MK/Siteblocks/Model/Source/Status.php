@@ -25,8 +25,8 @@ class MK_Siteblocks_Model_Source_Status
     public function toArray()
     {
         return array(
-            self::DISABLED => Mage::helper('siteblocks')->__('No'),
             self::ENABLED => Mage::helper('siteblocks')->__('Yes'),
+            self::DISABLED => Mage::helper('siteblocks')->__('No'),
         );
     }
 }
